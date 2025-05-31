@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { Menu, X, Coffee } from "lucide-react";
+import { Menu, X, Coffee, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isAuthenticated } = useAuth();
 
   const navItems = [
     { href: "#customize", label: "Customize" },
@@ -22,14 +25,14 @@ export function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+    <nav className="bg-background shadow-sm border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-coffee-brown rounded-full flex items-center justify-center">
-              <Coffee className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              <Coffee className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold coffee-brown">Bean Lab</span>
+            <span className="text-xl font-bold text-primary">Bean Lab</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -37,14 +40,38 @@ export function Navigation() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="coffee-grey hover:coffee-brown transition-colors font-medium"
+                className="text-muted-foreground hover:text-primary transition-colors font-medium"
               >
                 {item.label}
               </button>
             ))}
-            <Button className="bg-coffee-brown text-white hover:bg-coffee-brown/90">
-              Sign In
-            </Button>
+            
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span>{user?.username || 'User'}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/auth">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </div>
           
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -59,14 +86,30 @@ export function Navigation() {
                   <button
                     key={item.href}
                     onClick={() => scrollToSection(item.href)}
-                    className="text-left coffee-grey hover:coffee-brown transition-colors font-medium py-2"
+                    className="text-left text-muted-foreground hover:text-primary transition-colors font-medium py-2"
                   >
                     {item.label}
                   </button>
                 ))}
-                <Button className="bg-coffee-brown text-white hover:bg-coffee-brown/90 mt-4">
-                  Sign In
-                </Button>
+                
+                {isAuthenticated ? (
+                  <div className="space-y-2 mt-4">
+                    <Button variant="ghost" className="w-full justify-start">
+                      <User className="w-4 h-4 mr-2" />
+                      {user?.username || 'User'}
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start">
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <Link href="/auth">
+                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 mt-4 w-full">
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
               </div>
             </SheetContent>
           </Sheet>

@@ -1,10 +1,56 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertCoffeeRecipeSchema, insertCoffeeLogSchema } from "@shared/schema";
+import { insertCoffeeRecipeSchema, insertCoffeeLogSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Authentication routes
+  app.post("/api/auth/signup", async (req, res) => {
+    try {
+      const userData = insertUserSchema.parse(req.body);
+      const existingUser = await storage.getUserByUsername(userData.username);
+      
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already exists" });
+      }
+      
+      const user = await storage.createUser(userData);
+      res.json({ id: user.id, username: user.username, dailyCaffeineGoal: user.dailyCaffeineGoal });
+    } catch (error) {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, password } = z.object({
+        username: z.string(),
+        password: z.string(),
+      }).parse(req.body);
+      
+      const user = await storage.getUserByUsername(username);
+      
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      res.json({ id: user.id, username: user.username, dailyCaffeineGoal: user.dailyCaffeineGoal });
+    } catch (error) {
+      res.status(400).json({ message: "Invalid login data" });
+    }
+  });
+
+  app.get("/api/auth/user", async (req, res) => {
+    // For demo purposes, return a mock user
+    const mockUser = await storage.getUser(1);
+    if (mockUser) {
+      res.json({ id: mockUser.id, username: mockUser.username, dailyCaffeineGoal: mockUser.dailyCaffeineGoal });
+    } else {
+      res.status(401).json({ message: "Not authenticated" });
+    }
+  });
+
   // Coffee recipes
   app.get("/api/recipes", async (req, res) => {
     try {

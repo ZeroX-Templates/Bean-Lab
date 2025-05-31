@@ -63,6 +63,17 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
+    // Create a demo user
+    const demoUser: User = {
+      id: 1,
+      username: "demo",
+      password: "demo",
+      dailyCaffeineGoal: 400,
+      createdAt: new Date(),
+    };
+    this.users.set(1, demoUser);
+    this.currentUserId = 2;
+
     // Seed brewing methods
     const brewingMethodsData = [
       {
