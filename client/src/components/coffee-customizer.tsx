@@ -104,33 +104,30 @@ export function CoffeeCustomizer() {
             <CardContent className="space-y-8">
               {/* Coffee Type Selection */}
               <div>
-                <Label className="text-lg font-semibold coffee-grey mb-4 block">
+                <Label className="text-lg font-semibold text-foreground mb-4 block">
                   Coffee Type
                 </Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {coffeeTypes.slice(0, 4).map((coffee) => (
+                <div className="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto">
+                  {coffeeTypes.map((coffee) => (
                     <button
                       key={coffee.id}
                       onClick={() => setSelectedType(coffee.id)}
                       className={`p-4 rounded-xl border-2 transition-all text-left ${
                         selectedType === coffee.id
-                          ? "border-coffee-brown bg-coffee-wheat/20"
-                          : "border-gray-200 hover:border-coffee-brown"
+                          ? "border-primary bg-accent"
+                          : "border-border hover:border-primary"
                       }`}
                     >
-                      <div className="font-semibold coffee-brown">{coffee.name}</div>
-                      <div className="text-sm coffee-grey">{coffee.description}</div>
+                      <div className="font-semibold text-primary">{coffee.name}</div>
+                      <div className="text-sm text-muted-foreground">{coffee.description}</div>
                     </button>
                   ))}
                 </div>
-                <Button variant="link" className="mt-3 coffee-brown p-0">
-                  View all {coffeeTypes.length} types →
-                </Button>
               </div>
 
               {/* Milk Selection */}
               <div>
-                <Label className="text-lg font-semibold coffee-grey mb-4 block">
+                <Label className="text-lg font-semibold text-foreground mb-4 block">
                   Milk Choice
                 </Label>
                 <Select value={selectedMilk} onValueChange={setSelectedMilk}>
@@ -149,7 +146,7 @@ export function CoffeeCustomizer() {
 
               {/* Sweetness Level */}
               <div>
-                <Label className="text-lg font-semibold coffee-grey mb-4 block">
+                <Label className="text-lg font-semibold text-foreground mb-4 block">
                   Sweetness Level
                 </Label>
                 <div className="px-4">
@@ -160,26 +157,28 @@ export function CoffeeCustomizer() {
                     step={1}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm coffee-grey mt-2">
-                    <span>0</span>
-                    <span>5</span>
+                  <div className="flex justify-between text-sm text-muted-foreground mt-2">
+                    <span>No Sugar</span>
+                    <span>Very Sweet</span>
                   </div>
                 </div>
                 <div className="text-center mt-2">
-                  <span className="coffee-brown font-medium">
-                    {sweetnessLevel[0]} teaspoon{sweetnessLevel[0] !== 1 ? "s" : ""}
+                  <span className="text-primary font-medium">
+                    {sweetnessLevel[0] === 0 ? "No Sugar" : 
+                     sweetnessLevel[0] === 1 ? "1 teaspoon" :
+                     `${sweetnessLevel[0]} teaspoons`}
                   </span>
                 </div>
               </div>
 
               {/* Toppings */}
               <div>
-                <Label className="text-lg font-semibold coffee-grey mb-4 block">
+                <Label className="text-lg font-semibold text-foreground mb-4 block">
                   Toppings
                 </Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {toppings.slice(0, 4).map((topping) => (
-                    <div key={topping.id} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-coffee-wheat/20">
+                <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                  {toppings.map((topping) => (
+                    <div key={topping.id} className="flex items-center space-x-2 p-2 rounded-lg hover:bg-accent">
                       <Checkbox
                         id={topping.id}
                         checked={selectedToppings.includes(topping.id)}
@@ -193,9 +192,6 @@ export function CoffeeCustomizer() {
                     </div>
                   ))}
                 </div>
-                <Button variant="link" className="mt-2 coffee-brown p-0">
-                  View all {toppings.length} toppings →
-                </Button>
               </div>
 
               <Button 
