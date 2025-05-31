@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: 0 0% 100%; /* #FFFFFF */
+  --foreground: 215 6% 29%; /* #4A4A4A */
+  --muted: 33 11% 95%; /* #F5F5F5 */
+  --muted-foreground: 215 6% 45%; /* #6B6B6B */
+  --popover: 0 0% 100%; /* #FFFFFF */
+  --popover-foreground: 215 6% 29%; /* #4A4A4A */
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-foreground: 215 6% 29%; /* #4A4A4A */
+  --border: 33 7% 90%; /* #E5E5E5 */
+  --input: 33 7% 90%; /* #E5E5E5 */
+  --primary: 25 60% 31%; /* #8B4513 */
+  --primary-foreground: 0 0% 100%; /* #FFFFFF */
+  --secondary: 39 33% 69%; /* #D2B48C */
+  --secondary-foreground: 215 6% 29%; /* #4A4A4A */
+  --accent: 39 56% 85%; /* #F5DEB3 */
+  --accent-foreground: 215 6% 29%; /* #4A4A4A */
+  --destructive: 0 84% 60%; /* #EF4444 */
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+  --ring: 25 60% 31%; /* #8B4513 */
+  --radius: 0.5rem;
+  
+  /* Coffee-specific colors */
+  --coffee-brown: 25 60% 31%; /* #8B4513 */
+  --coffee-tan: 39 33% 69%; /* #D2B48C */
+  --coffee-wheat: 39 56% 85%; /* #F5DEB3 */
+  --coffee-grey: 215 6% 29%; /* #4A4A4A */
+}
+
+.dark {
+  --background: 224 71% 4%; /* #0F0F23 */
+  --foreground: 213 31% 91%; /* #E4E4E7 */
+  --muted: 223 47% 11%; /* #1F1F2E */
+  --muted-foreground: 215.4 16.3% 56.9%; /* #8B8B9A */
+  --popover: 224 71% 4%; /* #0F0F23 */
+  --popover-foreground: 213 31% 91%; /* #E4E4E7 */
+  --card: 224 71% 4%; /* #0F0F23 */
+  --card-foreground: 213 31% 91%; /* #E4E4E7 */
+  --border: 216 34% 17%; /* #2E2E42 */
+  --input: 216 34% 17%; /* #2E2E42 */
+  --primary: 25 60% 31%; /* #8B4513 */
+  --primary-foreground: 0 0% 100%; /* #FFFFFF */
+  --secondary: 39 33% 69%; /* #D2B48C */
+  --secondary-foreground: 215 6% 29%; /* #4A4A4A */
+  --accent: 216 34% 17%; /* #2E2E42 */
+  --accent-foreground: 213 31% 91%; /* #E4E4E7 */
+  --destructive: 0 63% 31%; /* #7F1D1D */
+  --destructive-foreground: 213 31% 91%; /* #E4E4E7 */
+  --ring: 216 34% 17%; /* #2E2E42 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer utilities {
+  .coffee-brown {
+    color: hsl(var(--coffee-brown));
+  }
+  
+  .bg-coffee-brown {
+    background-color: hsl(var(--coffee-brown));
+  }
+  
+  .coffee-tan {
+    color: hsl(var(--coffee-tan));
+  }
+  
+  .bg-coffee-tan {
+    background-color: hsl(var(--coffee-tan));
+  }
+  
+  .coffee-wheat {
+    color: hsl(var(--coffee-wheat));
+  }
+  
+  .bg-coffee-wheat {
+    background-color: hsl(var(--coffee-wheat));
+  }
+  
+  .coffee-grey {
+    color: hsl(var(--coffee-grey));
+  }
+  
+  .bg-coffee-grey {
+    background-color: hsl(var(--coffee-grey));
+  }
+}
+
+/* Custom slider styling */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: hsl(var(--coffee-brown));
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: hsl(var(--coffee-brown));
+  cursor: pointer;
+  border: none;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--coffee-brown));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--coffee-brown) / 0.8);
+}
