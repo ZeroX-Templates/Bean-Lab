@@ -30,10 +30,10 @@ export default function Home() {
         
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight text-hero">
               Craft Your Perfect Coffee Recipe
             </h1>
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-xl text-white mb-8 leading-relaxed font-medium" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>
               Personalized coffee recommendations based on your health goals and caffeine preferences. 
               Track your consumption and master brewing techniques with Bean Lab.
             </p>

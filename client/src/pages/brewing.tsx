@@ -59,7 +59,7 @@ export default function Brewing() {
               
               <CardContent className="space-y-4">
                 {method.description && (
-                  <p className="text-muted-foreground text-sm">{method.description}</p>
+                  <p className="text-gray-700 text-sm font-medium leading-relaxed">{method.description}</p>
                 )}
 
                 {method.equipmentNeeded && method.equipmentNeeded.length > 0 && (
@@ -86,7 +86,7 @@ export default function Brewing() {
                         <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
                           {index + 1}
                         </span>
-                        <span className="text-muted-foreground">{step}</span>
+                        <span className="text-gray-800 font-medium leading-relaxed">{step}</span>
                       </li>
                     ))}
                   </ol>

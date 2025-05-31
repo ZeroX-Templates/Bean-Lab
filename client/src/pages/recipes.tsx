@@ -121,22 +121,22 @@ export default function Recipes() {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Coffee Type:</span>
-                      <span className="text-foreground font-medium">{recipe.coffeeType}</span>
+                      <span className="text-gray-600 font-medium">Coffee Type:</span>
+                      <span className="text-gray-900 font-semibold">{recipe.coffeeType}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Milk:</span>
-                      <span className="text-foreground font-medium">{recipe.milkType}</span>
+                      <span className="text-gray-600 font-medium">Milk:</span>
+                      <span className="text-gray-900 font-semibold">{recipe.milkType}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Sweetness:</span>
-                      <span className="text-foreground font-medium">{recipe.sweetnessLevel}/5</span>
+                      <span className="text-gray-600 font-medium">Sweetness:</span>
+                      <span className="text-gray-900 font-semibold">{recipe.sweetnessLevel}/5</span>
                     </div>
                   </div>
 
                   {recipe.toppings && recipe.toppings.length > 0 && (
                     <div>
-                      <p className="text-sm text-muted-foreground mb-2">Toppings:</p>
+                      <p className="text-sm text-gray-700 font-medium mb-2">Toppings:</p>
                       <div className="flex flex-wrap gap-1">
                         {recipe.toppings.map((topping, index) => (
                           <Badge key={index} variant="secondary" className="text-xs">
@@ -150,11 +150,11 @@ export default function Recipes() {
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <div className="text-center p-2 bg-accent rounded">
                       <div className="text-sm font-semibold text-primary">{recipe.calories || 0}</div>
-                      <div className="text-xs text-muted-foreground">Calories</div>
+                      <div className="text-xs text-gray-600 font-medium">Calories</div>
                     </div>
                     <div className="text-center p-2 bg-accent rounded">
                       <div className="text-sm font-semibold text-primary">{recipe.caffeine || 0}mg</div>
-                      <div className="text-xs text-muted-foreground">Caffeine</div>
+                      <div className="text-xs text-gray-600 font-medium">Caffeine</div>
                     </div>
                   </div>
 
