@@ -70,6 +70,18 @@ export function calculateNutrition(
     if (topping) {
       calories += topping.calories;
       caffeine += topping.caffeine;
+      // Add sugar from sweet toppings
+      if (topping.id === 'vanilla-syrup' || topping.id === 'caramel-syrup' || 
+          topping.id === 'hazelnut-syrup' || topping.id === 'honey-drizzle' || 
+          topping.id === 'maple-syrup') {
+        sugar += 8; // 8g sugar per syrup/sweetener topping
+      }
+      if (topping.id === 'marshmallows') {
+        sugar += 6; // 6g sugar from marshmallows
+      }
+      if (topping.id === 'chocolate-chips') {
+        sugar += 4; // 4g sugar from chocolate chips
+      }
     }
   });
 

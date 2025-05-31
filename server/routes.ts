@@ -5,6 +5,23 @@ import { insertCoffeeRecipeSchema, insertCoffeeLogSchema, insertUserSchema } fro
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Session storage
+  const sessions = new Map<string, { userId: number; expires: number }>();
+
+  // Middleware to get current user
+  const getCurrentUser = async (req: any) => {
+    const sessionId = req.cookies?.sessionId;
+    if (!sessionId) return null;
+
+    const session = sessions.get(sessionId);
+    if (!session || session.expires < Date.now()) {
+      sessions.delete(sessionId);
+      return null;
+    }
+
+    return await storage.getUser(session.userId);
+  };
+
   // Authentication routes
   app.post("/api/auth/signup", async (req, res) => {
     try {
@@ -34,6 +51,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!user || user.password !== password) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
+
+      // Create session
+      const sessionId = Math.random().toString(36).substring(2);
+      const expires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+      sessions.set(sessionId, { userId: user.id, expires });
+
+      res.cookie('sessionId', sessionId, { 
+        httpOnly: true, 
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: 'lax'
+      });
       
       res.json({ id: user.id, username: user.username, dailyCaffeineGoal: user.dailyCaffeineGoal });
     } catch (error) {
@@ -42,7 +70,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/auth/user", async (req, res) => {
-    res.status(401).json({ message: "Not authenticated" });
+    try {
+      const user = await getCurrentUser(req);
+      if (!user) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+      res.json({ id: user.id, username: user.username, dailyCaffeineGoal: user.dailyCaffeineGoal });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get user" });
+    }
+  });
+
+  app.post("/api/auth/logout", (req, res) => {
+    const sessionId = req.cookies?.sessionId;
+    if (sessionId) {
+      sessions.delete(sessionId);
+    }
+    res.clearCookie('sessionId');
+    res.json({ message: "Logged out successfully" });
   });
 
   // Coffee recipes
