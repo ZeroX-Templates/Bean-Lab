@@ -42,13 +42,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/api/auth/user", async (req, res) => {
-    // For demo purposes, return a mock user
-    const mockUser = await storage.getUser(1);
-    if (mockUser) {
-      res.json({ id: mockUser.id, username: mockUser.username, dailyCaffeineGoal: mockUser.dailyCaffeineGoal });
-    } else {
-      res.status(401).json({ message: "Not authenticated" });
-    }
+    res.status(401).json({ message: "Not authenticated" });
   });
 
   // Coffee recipes

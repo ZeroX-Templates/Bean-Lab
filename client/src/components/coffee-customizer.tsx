@@ -85,10 +85,10 @@ export function CoffeeCustomizer() {
     <section id="customize" className="py-16 lg:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold coffee-brown mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             Build Your Perfect Cup
           </h2>
-          <p className="text-lg coffee-grey max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Customize every aspect of your coffee with 12 types, 12 milk options, and endless combinations
           </p>
         </div>
@@ -97,7 +97,7 @@ export function CoffeeCustomizer() {
           {/* Coffee Builder Interface */}
           <Card className="shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl font-bold coffee-brown">
+              <CardTitle className="text-2xl font-bold text-primary">
                 Customize Your Coffee
               </CardTitle>
             </CardHeader>
@@ -195,7 +195,7 @@ export function CoffeeCustomizer() {
               </div>
 
               <Button 
-                className="w-full bg-coffee-brown text-white hover:bg-coffee-brown/90"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 onClick={handleCreateRecipe}
                 disabled={createRecipeMutation.isPending}
               >
@@ -209,17 +209,17 @@ export function CoffeeCustomizer() {
             {/* Coffee Preview */}
             <Card className="shadow-lg">
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold coffee-brown mb-4">Your Coffee Preview</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">Your Coffee Preview</h3>
                 <div className="text-center">
                   <img 
                     src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
                     alt="Coffee preview" 
                     className="w-48 h-48 object-cover rounded-full mx-auto mb-4" 
                   />
-                  <h4 className="text-2xl font-bold coffee-brown mb-2">
+                  <h4 className="text-2xl font-bold text-primary mb-2">
                     {recipeName}
                   </h4>
-                  <p className="coffee-grey">
+                  <p className="text-muted-foreground">
                     {selectedCoffee?.description} with {selectedMilkType?.name.toLowerCase()}, 
                     {sweetnessLevel[0] === 0 ? " no" : sweetnessLevel[0] === 1 ? " light" : 
                      sweetnessLevel[0] <= 3 ? " medium" : " high"} sweetness
@@ -231,23 +231,23 @@ export function CoffeeCustomizer() {
             {/* Nutrition Info */}
             <Card className="shadow-lg">
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold coffee-brown mb-4">Nutrition Information</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">Nutrition Information</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-coffee-wheat/20 rounded-xl">
-                    <div className="text-2xl font-bold coffee-brown">{nutrition.calories}</div>
-                    <div className="text-sm coffee-grey">Calories</div>
+                  <div className="text-center p-4 bg-accent rounded-xl">
+                    <div className="text-2xl font-bold text-primary">{nutrition.calories}</div>
+                    <div className="text-sm text-muted-foreground">Calories</div>
                   </div>
-                  <div className="text-center p-4 bg-coffee-wheat/20 rounded-xl">
-                    <div className="text-2xl font-bold coffee-brown">{nutrition.caffeine}mg</div>
-                    <div className="text-sm coffee-grey">Caffeine</div>
+                  <div className="text-center p-4 bg-accent rounded-xl">
+                    <div className="text-2xl font-bold text-primary">{nutrition.caffeine}mg</div>
+                    <div className="text-sm text-muted-foreground">Caffeine</div>
                   </div>
-                  <div className="text-center p-4 bg-coffee-wheat/20 rounded-xl">
-                    <div className="text-2xl font-bold coffee-brown">{nutrition.sugar}g</div>
-                    <div className="text-sm coffee-grey">Sugar</div>
+                  <div className="text-center p-4 bg-accent rounded-xl">
+                    <div className="text-2xl font-bold text-primary">{nutrition.sugar}g</div>
+                    <div className="text-sm text-muted-foreground">Sugar</div>
                   </div>
-                  <div className="text-center p-4 bg-coffee-wheat/20 rounded-xl">
-                    <div className="text-2xl font-bold coffee-brown">{nutrition.protein}g</div>
-                    <div className="text-sm coffee-grey">Protein</div>
+                  <div className="text-center p-4 bg-accent rounded-xl">
+                    <div className="text-2xl font-bold text-primary">{nutrition.protein}g</div>
+                    <div className="text-sm text-muted-foreground">Protein</div>
                   </div>
                 </div>
               </CardContent>

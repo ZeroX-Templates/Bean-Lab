@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CheckCircle, AlertTriangle, Coffee, Target, TrendingUp, Calendar } from "lucide-react";
+import { CheckCircle, AlertTriangle, Coffee, Target, TrendingUp, Calendar, Heart, Activity, Brain, Zap, Clock, BarChart3 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { coffeeTypes } from "@/lib/coffee-data";
@@ -291,59 +291,105 @@ export function HealthTracker() {
               </CardContent>
             </Card>
 
-            {/* Health Insights */}
+            {/* Enhanced Health Stats */}
             <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl font-bold coffee-brown">Health Insights</CardTitle>
+                <CardTitle className="text-xl font-bold text-primary flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5" />
+                  Health Analytics
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="p-4 bg-green-50 rounded-xl border border-green-200">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="font-semibold text-green-800">Great Progress!</span>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 bg-accent rounded-xl text-center">
+                    <Heart className="w-5 h-5 text-red-500 mx-auto mb-1" />
+                    <div className="text-sm font-medium text-foreground">Heart Rate</div>
+                    <div className="text-xs text-muted-foreground">Impact: Minimal</div>
                   </div>
-                  <p className="text-sm text-green-700">
-                    You're staying within your caffeine goals consistently.
-                  </p>
+                  <div className="p-3 bg-accent rounded-xl text-center">
+                    <Brain className="w-5 h-5 text-purple-500 mx-auto mb-1" />
+                    <div className="text-sm font-medium text-foreground">Focus</div>
+                    <div className="text-xs text-muted-foreground">Enhanced</div>
+                  </div>
+                  <div className="p-3 bg-accent rounded-xl text-center">
+                    <Zap className="w-5 h-5 text-yellow-500 mx-auto mb-1" />
+                    <div className="text-sm font-medium text-foreground">Energy</div>
+                    <div className="text-xs text-muted-foreground">Optimal</div>
+                  </div>
+                  <div className="p-3 bg-accent rounded-xl text-center">
+                    <Clock className="w-5 h-5 text-blue-500 mx-auto mb-1" />
+                    <div className="text-sm font-medium text-foreground">Sleep</div>
+                    <div className="text-xs text-muted-foreground">Good timing</div>
+                  </div>
                 </div>
                 
-                <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <AlertTriangle className="w-5 h-5 text-yellow-600" />
-                    <span className="font-semibold text-yellow-800">Tip</span>
+                {healthStats && (
+                  <div className="space-y-3">
+                    {healthStats.todaysCaffeine < healthStats.dailyGoal * 0.5 && (
+                      <div className="p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Activity className="w-5 h-5 text-blue-600" />
+                          <span className="font-semibold text-blue-800">Room for More</span>
+                        </div>
+                        <p className="text-sm text-blue-700">
+                          You're well within your caffeine limit. Consider a mid-afternoon pick-me-up!
+                        </p>
+                      </div>
+                    )}
+                    
+                    {healthStats.todaysCaffeine > healthStats.dailyGoal * 0.8 && (
+                      <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <AlertTriangle className="w-5 h-5 text-amber-600" />
+                          <span className="font-semibold text-amber-800">Approaching Limit</span>
+                        </div>
+                        <p className="text-sm text-amber-700">
+                          You're close to your daily goal. Consider switching to decaf for your next cup.
+                        </p>
+                      </div>
+                    )}
+                    
+                    {healthStats.goalAdherence >= 80 && (
+                      <div className="p-4 bg-green-50 rounded-xl border border-green-200">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <span className="font-semibold text-green-800">Excellent Consistency!</span>
+                        </div>
+                        <p className="text-sm text-green-700">
+                          You're maintaining great caffeine habits. Keep up the balanced approach!
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-sm text-yellow-700">
-                    Try spacing your coffee intake throughout the day for better sleep.
-                  </p>
-                </div>
+                )}
               </CardContent>
             </Card>
 
             {/* Quick Actions */}
             <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl font-bold coffee-brown flex items-center gap-2">
+                <CardTitle className="text-xl font-bold text-primary flex items-center gap-2">
                   <Target className="h-5 w-5" />
                   Quick Actions
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-coffee-wheat/20">
+                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-accent text-foreground">
                   <div className="text-left">
-                    <div className="font-semibold coffee-brown">Set New Goal</div>
-                    <div className="text-sm coffee-grey">Adjust your daily caffeine target</div>
+                    <div className="font-semibold text-primary">Set New Goal</div>
+                    <div className="text-sm text-muted-foreground">Adjust your daily caffeine target</div>
                   </div>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-coffee-wheat/20">
+                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-accent text-foreground">
                   <div className="text-left">
-                    <div className="font-semibold coffee-brown">Export Data</div>
-                    <div className="text-sm coffee-grey">Download your coffee log</div>
+                    <div className="font-semibold text-primary">View Trends</div>
+                    <div className="text-sm text-muted-foreground">Analyze your coffee patterns</div>
                   </div>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-coffee-wheat/20">
+                <Button variant="ghost" className="w-full justify-start p-3 h-auto hover:bg-accent text-foreground">
                   <div className="text-left">
-                    <div className="font-semibold coffee-brown">Share Progress</div>
-                    <div className="text-sm coffee-grey">Show friends your achievements</div>
+                    <div className="font-semibold text-primary">Recipe History</div>
+                    <div className="text-sm text-muted-foreground">Review your favorite brews</div>
                   </div>
                 </Button>
               </CardContent>

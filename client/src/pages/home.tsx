@@ -48,10 +48,10 @@ export default function Home() {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-coffee-brown transition-all"
+                className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all"
                 onClick={() => scrollToSection('#tracking')}
               >
-                View Health Stats
+                Track Your Health
               </Button>
             </div>
           </div>
